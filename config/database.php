@@ -42,14 +42,14 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
-        /*
+       
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3307'),
+            'host' => env('DB_HOST', '172.31.64.1'),
+            'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'employee_portal'),
-            'username' => env('DB_USERNAME', 'root'),
+            'username' => env('DB_USERNAME', 'elmer'),
             'password' => env('DB_PASSWORD', 'password'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
@@ -62,7 +62,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        */
+        /*
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -83,6 +83,7 @@ return [
                 PDO::ATTR_EMULATE_PREPARES => true,
             ]) : [],
         ],
+         */
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

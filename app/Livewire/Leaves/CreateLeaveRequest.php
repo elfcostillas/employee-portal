@@ -11,6 +11,7 @@ use App\Repository\LeavesRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 #[Layout('custom-layout.app')]
 
@@ -106,10 +107,52 @@ class CreateLeaveRequest extends Component
 
     public function submitRequest()
     {
-        
-    }
-}
 
+        $header_data = $this->form->validate();
+
+        $array = [
+          'requested_by' => Auth::user()->id,
+          'requested_on' => now(),
+          'date_from' => $header_data['date_to'],
+          'date_to' =>$header_data['date_from'],
+          'leave_reason' => trim($header_data['leave_reason']),
+          'leave_type' => trim($header_data['leave_type']),
+      ];
+
+      DB::beginTransaction();
+
+      $header = LeaveHeader::create($array);
+      // dd($header->id);
+      // DB
+      $details_data = [];
+
+      foreach($this->dates as $leave)
+      {
+        $details = array(
+          'header_id' => $header->id,
+          'leave_date' => $leave['db_date'],
+          'with_pay' => $leave['w_pay'],
+          'without_pay' => $leave['wo_pay'],
+        );
+
+        array_push( $details_data,$details);
+      }
+
+      $creation_result = DB::table('leave_details')->insert($details_data);
+
+      if($creation_result){
+        DB::commit();
+        session()->flash('success','Leave Request submitted.');
+        $this->form->reset();
+        $this->dates = [];
+
+      }else{
+        DB::rollBack();
+        session()->flash('error','Please check entries.');
+      }
+
+  }
+}
 
 /*
 App\Livewire\Forms\Leaves\CreateLeaveForm {#542 ▼ // app\Livewire\Leaves\CreateLeaveRequest.php:108
