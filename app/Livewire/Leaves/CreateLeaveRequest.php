@@ -21,8 +21,6 @@ class CreateLeaveRequest extends Component
     private $repo;
     public $dates = [];
 
-    public $sampledates = [];
-
     public function mount(LeavesRepository $repo)
     {
         $this->repo = $repo;
@@ -35,88 +33,83 @@ class CreateLeaveRequest extends Component
 
     public function render()
     {
-        // $leave_type = [];
-        $leave_type = $this->repo->myLeaveTypes();
-        return view('livewire.leaves.create-leave-request',['leave_types' => $leave_type]);
+      // $leave_type = [];
+      $leave_type = $this->repo->myLeaveTypes();
+      return view('livewire.leaves.create-leave-request', ['leave_types' => $leave_type]);
     }
 
     public function submitForm()
-    {   
-        /*
-        $flag = $this->form->validate();
+    {
+      /*
+            $flag = $this->form->validate();
 
-        $array = [
-            'requested_by' => Auth::user()->id,
-            'requested_on' => now(),
-            'date_from' => $flag['date_to'],
-            'date_to' =>$flag['date_from'],
-            'leave_reason' => trim($flag['leave_reason']),
-            'leave_type' => trim($flag['leave_type']),
-        ];
+            $array = [
+                'requested_by' => Auth::user()->id,
+                'requested_on' => now(),
+                'date_from' => $flag['date_to'],
+                'date_to' =>$flag['date_from'],
+                'leave_reason' => trim($flag['leave_reason']),
+                'leave_type' => trim($flag['leave_type']),
+            ];
 
-        LeaveHeader::create($array);
+            LeaveHeader::create($array);
 
-        session()->flash('success','Leave Request saved.');
-        */
+            session()->flash('success','Leave Request saved.');
+            */
 
-        // $this->form->reset();
+      // $this->form->reset();
 
-        $this->form->validate();
-        $this->build_detail();
-       
+      $this->form->validate();
+      $this->build_detail();
     }
 
     public function build_detail()
     {
-        $range = CarbonPeriod::create($this->form->date_from,$this->form->date_to);
+      $range = CarbonPeriod::create($this->form->date_from, $this->form->date_to);
 
-        foreach($range as $date)
-        {
-            $index_date =  $this->carb_wtime($date);
+      foreach ($range as $date) {
+        $index_date =  $this->carb_wtime($date);
 
-            $detail_model = array(
-                'dayname' => $index_date->format('D'),
-                'date' => $index_date->format('m/d/Y'),
-                'db_date' => $index_date->format('Y-m-d'),
-                'w_pay' => 0,
-                'wo_pay' => 0
-            );
-            if($index_date->format('D')!='Sun')
-            {
-                array_push($this->dates,$detail_model);
-            }
-            
+        $detail_model = array(
+          'dayname' => $index_date->format('D'),
+          'date' => $index_date->format('m/d/Y'),
+          'db_date' => $index_date->format('Y-m-d'),
+          'w_pay' => 0,
+          'wo_pay' => 0
+        );
+        if ($index_date->format('D') != 'Sun') {
+          array_push($this->dates, $detail_model);
         }
-
+      }
     }
 
     function carb($date)
     {
-        return Carbon::createFromFormat('Y-m-d',$date);
+      return Carbon::createFromFormat('Y-m-d', $date);
     }
 
     function carb_wtime($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s',$date);
+      return Carbon::createFromFormat('Y-m-d H:i:s', $date);
     }
 
-    function updateDates($value,$type,$key)
+    function updateDates($value, $type, $key)
     {
-        $this->dates[$key][$type] = $value;
+      $this->dates[$key][$type] = $value;
     }
 
     public function submitRequest()
     {
 
-        $header_data = $this->form->validate();
+      $header_data = $this->form->validate();
 
-        $array = [
-          'requested_by' => Auth::user()->id,
-          'requested_on' => now(),
-          'date_from' => $header_data['date_to'],
-          'date_to' =>$header_data['date_from'],
-          'leave_reason' => trim($header_data['leave_reason']),
-          'leave_type' => trim($header_data['leave_type']),
+      $array = [
+        'requested_by' => Auth::user()->id,
+        'requested_on' => now(),
+        'date_from' => $header_data['date_from'],
+        'date_to' => $header_data['date_to'],
+        'leave_reason' => trim($header_data['leave_reason']),
+        'leave_type' => trim($header_data['leave_type']),
       ];
 
       DB::beginTransaction();
@@ -126,8 +119,7 @@ class CreateLeaveRequest extends Component
       // DB
       $details_data = [];
 
-      foreach($this->dates as $leave)
-      {
+      foreach ($this->dates as $leave) {
         $details = array(
           'header_id' => $header->id,
           'leave_date' => $leave['db_date'],
@@ -135,23 +127,21 @@ class CreateLeaveRequest extends Component
           'without_pay' => $leave['wo_pay'],
         );
 
-        array_push( $details_data,$details);
+        array_push($details_data, $details);
       }
 
       $creation_result = DB::table('leave_details')->insert($details_data);
 
-      if($creation_result){
+      if ($creation_result) {
         DB::commit();
-        session()->flash('success','Leave Request submitted.');
+        session()->flash('success', 'Leave Request submitted.');
         $this->form->reset();
         $this->dates = [];
-
-      }else{
+      } else {
         DB::rollBack();
-        session()->flash('error','Please check entries.');
+        session()->flash('error', 'Please check entries.');
       }
-
-  }
+    }
 }
 
 /*

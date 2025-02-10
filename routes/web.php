@@ -8,6 +8,9 @@ use App\Livewire\DTR\Logs\MainComponent as LogsMainComponent;
 use App\Livewire\IndexPage;
 use App\Livewire\LeaveCredits\MainComponent;
 use App\Livewire\Leaves\CreateLeaveRequest;
+use App\Livewire\Leaves\EditLeaveRequest;
+use App\Livewire\Leaves\LeaveApproval;
+use App\Livewire\Leaves\LeaveApprovalViewing;
 use App\Livewire\Leaves\MainComponent as LeavesMainComponent;
 use App\Livewire\UserManagement\MainComponent as UserManagementMainComponent;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +71,11 @@ Route::middleware([
     Route::prefix('leave')->group(function(){
         Route::get('leave-request',LeavesMainComponent::class);
         Route::get('leave-request-create',CreateLeaveRequest::class);
+        Route::get('leave-request-edit/{id}',EditLeaveRequest::class);
+
+        Route::get('leave-approval',LeaveApproval::class);
+        Route::get('leave-approval-view/{id}',LeaveApprovalViewing::class);
+
     });
 
 
