@@ -66,6 +66,7 @@ class CreateLeaveRequest extends Component
     public function build_detail()
     {
       $range = CarbonPeriod::create($this->form->date_from, $this->form->date_to);
+      $this->dates = [];
 
       foreach ($range as $date) {
         $index_date =  $this->carb_wtime($date);
