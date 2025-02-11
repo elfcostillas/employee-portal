@@ -96,15 +96,15 @@ class LeaveCredits
                 switch($value->leave_type)
                 {
                     case 'VL' :
-                        $result['vacation_leave'] = (float) $value->consumed;
+                        $result['vacation_leave'] += (float) $value->consumed;
                         break;
 
                     case 'SL' :
-                        $result['sick_leave'] = (float) $value->consumed;
+                        $result['sick_leave'] += (float) $value->consumed;
                         break;
 
                     case 'SVL' :
-                        $result['summer_vacation_leave'] =(float)  $value->consumed;
+                        $result['summer_vacation_leave'] += (float)  $value->consumed;
                         break;
                     default :
 
@@ -168,15 +168,15 @@ class LeaveCredits
                 switch($value->leave_type)
                 {
                     case 'VL' :
-                        $result['vacation_leave'] = (float) $value->consumed;
+                        $result['vacation_leave'] += (float) $value->consumed;
                         break;
 
                     case 'SL' :
-                        $result['sick_leave'] = (float) $value->consumed;
+                        $result['sick_leave'] += (float) $value->consumed;
                         break;
 
                     case 'SVL' :
-                        $result['summer_vacation_leave'] =(float)  $value->consumed;
+                        $result['summer_vacation_leave'] += (float)  $value->consumed;
                         break;
                     default :
 
@@ -247,15 +247,15 @@ class LeaveCredits
                 switch($ltype->leave_type)
                 {
                     case 1 :
-                        $result['vacation_leave'] = (float) $ltype->days;
+                        $result['vacation_leave'] += (float) $ltype->days;
                         break;
     
                     case 2 :
-                        $result['sick_leave'] = (float) $ltype->days;
+                        $result['sick_leave'] += (float) $ltype->days;
                         break;
     
                     case 8 : 
-                        $result['summer_vacation_leave'] = (float) $ltype->days;
+                        $result['summer_vacation_leave'] += (float) $ltype->days;
                         break;
     
                     default : break;
@@ -326,15 +326,15 @@ class LeaveCredits
                 switch($ltype->leave_type)
                 {
                     case 1 :
-                        $result['vacation_leave'] = (float) $ltype->days;
+                        $result['vacation_leave'] += (float) $ltype->days;
                         break;
     
                     case 2 :
-                        $result['sick_leave'] = (float) $ltype->days;
+                        $result['sick_leave'] += (float) $ltype->days;
                         break;
     
                     case 8 : 
-                        $result['summer_vacation_leave'] = (float) $ltype->days;
+                        $result['summer_vacation_leave'] += (float) $ltype->days;
                         break;
     
                     default : break;
