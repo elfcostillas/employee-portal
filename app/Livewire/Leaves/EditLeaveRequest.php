@@ -195,6 +195,7 @@ class EditLeaveRequest extends Component
         }else{
             DB::rollBack();
             session()->flash('error', 'Requested leave with pay exceeds remaining balance.');
+            $this->dispatch('contentChanged', ['error' => 'error']);
         }
 
     }

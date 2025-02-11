@@ -184,8 +184,10 @@ class CreateLeaveRequest extends Component
         if($exceed_limit)
         {
             session()->flash('error', 'Requested leave with pay exceeds remaining balance.');
+            $this->dispatch('contentChanged', ['error' => 'error']);
         }else{
             session()->flash('error', 'Please check entries.');
+            $this->dispatch('contentChanged', ['error' => 'error']);
         }
         
       }
