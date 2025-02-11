@@ -24,10 +24,13 @@ class LeaveApprovalViewing extends Component
     private $repo;
     public $dates = [];
 
+    public $remarks;
+
     public function mount(Request $request,LeavesRepository $repo)
     {
         // dd($request->id);
         $this->repo = $repo;
+        $this->remarks = '';
 
         /* Headers */
         $header = $this->repo->getLeavesHeader($request->id);
@@ -60,13 +63,13 @@ class LeaveApprovalViewing extends Component
     function approveRequest()
     {
         // dd($this->form->id);
-        $result = $this->repo->approveLeave($this->form->id);
+        $result = $this->repo->approveLeave($this->form->id,$this->remarks);
         session()->flash('success','Leave Request approved.');
     }
 
     function denyRequest()
     {
-        $result = $this->repo->denyLeave($this->form->id);
+        $result = $this->repo->denyLeave($this->form->id,$this->remarks);
         session()->flash('success','Leave Request denied.');
     }
 

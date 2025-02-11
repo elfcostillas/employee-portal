@@ -4,6 +4,7 @@ namespace App\Livewire\Leaves;
 
 use App\Models\Leaves\LeaveDetail;
 use App\Models\Leaves\LeaveHeader;
+use App\Models\LeaveCredits;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Repository\LeavesRepository;
@@ -21,6 +22,7 @@ class EditLeaveRequest extends Component
     public EditLeaveForm $form;
     private $repo;
     public $dates = [];
+    public $isAccepted;
 
     public function mount(Request $request,LeavesRepository $repo)
     {
@@ -35,6 +37,13 @@ class EditLeaveRequest extends Component
         $this->form->date_to = $header->date_to;
         $this->form->leave_reason = $header->leave_reason;
         $this->form->leave_type = $header->leave_type;
+
+        if($header->sup_apporval_by || $header->manager_approval_by || $header->div_manager_approval_by)
+        {
+            $this->isAccepted = true;
+        }else{
+            $this->isAccepted = false;
+        }
         
         /* Details */
 
@@ -63,7 +72,7 @@ class EditLeaveRequest extends Component
     public function render()
     {
         $leave_type = $this->repo->myLeaveTypes();
-        return view('livewire.leaves.edit-leave-request',['leave_types' => $leave_type]);
+        return view('livewire.leaves.edit-leave-request',['leave_types' => $leave_type,'isAccepted' => $this->isAccepted]);
     }
 
     function updateDates($value,$type,$key)
@@ -127,6 +136,8 @@ class EditLeaveRequest extends Component
         $header = DB::table('leave_headers')->where('id',$header_data['id'])->update($array);
       
         $details_data = [];
+        $total_wpay = 0;
+        $exceed_limit = false;
 
         foreach($this->dates as $leave)
         {
@@ -141,16 +152,41 @@ class EditLeaveRequest extends Component
             );
 
             // array_push( $details_data,$details);
+            $total_wpay += $leave['w_pay'];
 
             $creation_result = DB::table('leave_details')->updateOrInsert($key,$details);
 
-            // if(!$creation_result)
-            // {
-            //     $error = true;
-            // }
         }
 
-        if(!$error){
+        $credits = new LeaveCredits();
+        $remaining = $credits->getAssumedRemainingUpdate($header_data['id']);
+
+        switch($array['leave_type'])
+        {
+            case 1 : 
+                    if( ($total_wpay/8) > $remaining['vacation_leave'])
+                    {
+                      $exceed_limit = true;
+                    }
+              break;
+            case 2 : 
+              if( ($total_wpay/8) > $remaining['sick_leave'])
+                    {
+                      $exceed_limit = true;
+                    }
+              break;
+            case 8 :  
+              if( ($total_wpay/8) > $remaining['summer_vacation_leave'])
+                    {
+                      $exceed_limit = true;
+                    }
+              break;
+  
+            default : 
+            break;
+        }
+
+        if(!$exceed_limit){
             DB::commit();
             session()->flash('success','Leave Request submitted.');
             $this->form->reset();
@@ -158,7 +194,7 @@ class EditLeaveRequest extends Component
 
         }else{
             DB::rollBack();
-            session()->flash('error','Please check entries.');
+            session()->flash('error', 'Requested leave with pay exceeds remaining balance.');
         }
 
     }

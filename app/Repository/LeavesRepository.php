@@ -54,7 +54,10 @@ class LeavesRepository
                 'date_from',
                 'date_to',
                 'leave_reason',
-                'leave_type'
+                'leave_type',
+                'sup_approval_remarks',
+                'manager_approval_remarks',
+                'div_manager_approval_remarks'
             )
             ->orderBy('id','DESC');
     }
@@ -218,11 +221,14 @@ class LeavesRepository
             'date_to',
             'leave_reason',
             'leave_type',
-            'users.name'
+            'users.name',
+            'sup_approval_remarks',
+            'manager_approval_remarks',
+            'div_manager_approval_remarks'
         )->orderBy('id','DESC');
     }
 
-    public function approveLeave($id)
+    public function approveLeave($id,$remarks)
     {
         // $result = DB::table('h')
 
@@ -233,7 +239,8 @@ class LeavesRepository
                 $array = [
                     'sup_apporval_by' => Auth::user()->id,
                     'sup_apporval_on' => now(),
-                    'sup_approval_resp' => 'Approved'
+                    'sup_approval_resp' => 'Approved',
+                    'sup_approval_remarks' => trim($remarks)
                 ];
                 break;
 
@@ -241,7 +248,8 @@ class LeavesRepository
                 $array = [
                     'manager_approval_by' => Auth::user()->id,
                     'manager_approval_on' => now(),
-                    'manager_approval_resp' => 'Approved'
+                    'manager_approval_resp' => 'Approved',
+                    'manager_approval_remarks' => trim($remarks)
                 ];
                 break;
 
@@ -249,7 +257,8 @@ class LeavesRepository
                 $array = [
                     'div_manager_approval_by' => Auth::user()->id,
                     'div_manager_approval_on' => now(),
-                    'div_manager_approval_resp' => 'Approved'
+                    'div_manager_approval_resp' => 'Approved',
+                    'div_manager_approval_remarks' => trim($remarks)
                 ];
                 break;
         }
@@ -260,7 +269,7 @@ class LeavesRepository
 
     }
 
-    public function denyLeave($id)
+    public function denyLeave($id,$remarks)
     {
         $me = new Me();
        
@@ -269,7 +278,8 @@ class LeavesRepository
                 $array = [
                     'sup_apporval_by' => Auth::user()->id,
                     'sup_apporval_on' => now(),
-                    'sup_approval_resp' => 'Denied'
+                    'sup_approval_resp' => 'Denied',
+                    'sup_approval_remarks' => trim($remarks)
                 ];
                 break;
 
@@ -277,7 +287,8 @@ class LeavesRepository
                 $array = [
                     'manager_approval_by' => Auth::user()->id,
                     'manager_approval_on' => now(),
-                    'manager_approval_resp' => 'Denied'
+                    'manager_approval_resp' => 'Denied',
+                    'manager_approval_remarks' => trim($remarks)
                 ];
                 break;
 
@@ -285,7 +296,8 @@ class LeavesRepository
                 $array = [
                     'div_manager_approval_by' => Auth::user()->id,
                     'div_manager_approval_on' => now(),
-                    'div_manager_approval_resp' => 'Denied'
+                    'div_manager_approval_resp' => 'Denied',
+                    'div_manager_approval_remarks' => trim($remarks)
                 ];
                 break;
         }

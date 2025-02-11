@@ -3,6 +3,7 @@
 namespace App\Livewire\Leaves;
 
 use App\Livewire\Forms\Leaves\CreateLeaveForm;
+use App\Models\LeaveCredits;
 use App\Models\Leaves\LeaveDetail;
 use App\Models\Leaves\LeaveHeader;
 use Livewire\Attributes\Layout;
@@ -20,6 +21,7 @@ class CreateLeaveRequest extends Component
     public CreateLeaveForm $form;
     private $repo;
     public $dates = [];
+    public $done;
 
     public function mount(LeavesRepository $repo)
     {
@@ -96,7 +98,7 @@ class CreateLeaveRequest extends Component
 
     function updateDates($value, $type, $key)
     {
-      $this->dates[$key][$type] = $value;
+        $this->dates[$key][$type] = $value;
     }
 
     public function submitRequest()
@@ -120,6 +122,9 @@ class CreateLeaveRequest extends Component
       // DB
       $details_data = [];
 
+      $total_wpay = 0;
+      $exceed_limit = false;
+
       foreach ($this->dates as $leave) {
         $details = array(
           'header_id' => $header->id,
@@ -128,19 +133,61 @@ class CreateLeaveRequest extends Component
           'without_pay' => $leave['wo_pay'],
         );
 
+        $total_wpay += $leave['w_pay'];
+
         array_push($details_data, $details);
       }
 
+      $credits = new LeaveCredits();
+      $remaining = $credits->getAssumedRemaining();
+
+      switch($array['leave_type'])
+      {
+          case 1 : 
+                  if( ($total_wpay/8) > $remaining['vacation_leave'])
+                  {
+                    $exceed_limit = true;
+                  }
+            break;
+          case 2 : 
+            if( ($total_wpay/8) > $remaining['sick_leave'])
+                  {
+                    $exceed_limit = true;
+                  }
+            break;
+          case 8 :  
+            if( ($total_wpay/8) > $remaining['summer_vacation_leave'])
+                  {
+                    $exceed_limit = true;
+                  }
+            break;
+
+          default : 
+          break;
+      }
+      
+      // if( ($total_wpay/8) <= $remaining['vacation_leave'])
+      // {
+
+      // }
+      
+
       $creation_result = DB::table('leave_details')->insert($details_data);
 
-      if ($creation_result) {
+      if ($creation_result && !$exceed_limit) {
         DB::commit();
         session()->flash('success', 'Leave Request submitted.');
         $this->form->reset();
         $this->dates = [];
       } else {
         DB::rollBack();
-        session()->flash('error', 'Please check entries.');
+        if($exceed_limit)
+        {
+            session()->flash('error', 'Requested leave with pay exceeds remaining balance.');
+        }else{
+            session()->flash('error', 'Please check entries.');
+        }
+        
       }
     }
 }

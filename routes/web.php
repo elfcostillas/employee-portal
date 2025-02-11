@@ -11,6 +11,7 @@ use App\Livewire\Leaves\CreateLeaveRequest;
 use App\Livewire\Leaves\EditLeaveRequest;
 use App\Livewire\Leaves\LeaveApproval;
 use App\Livewire\Leaves\LeaveApprovalViewing;
+use App\Livewire\Leaves\LeaveBalance;
 use App\Livewire\Leaves\MainComponent as LeavesMainComponent;
 use App\Livewire\UserManagement\MainComponent as UserManagementMainComponent;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,8 @@ Route::middleware([
 
         Route::get('leave-approval',LeaveApproval::class);
         Route::get('leave-approval-view/{id}',LeaveApprovalViewing::class);
+
+        Route::get('leave-balance',LeaveBalance::class);
 
     });
 
