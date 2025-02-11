@@ -69,6 +69,17 @@
                 </select>
             </div>
 
+            <div class="mb-5">
+                <label for="reliever_bio_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reliever</label>
+                @error('form.reliever_bio_id') <span style="display:block" class="error">{{ $message }}</span> @enderror 
+                <select disabled id="reliever_bio" name="reliever_bio" wire:model='form.reliever_bio_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="0">N/A</option>
+                    @foreach( $reliver_list as $emp)
+                        <option value={{ $emp->biometric_id }} > {{ $emp->empname }} </option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="mb-5">   
                 <label for="leave_reason" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Leave Remarks</label>
                 @error('form.leave_reason') <span style="display:block" class="error">{{ $message }}</span> @enderror 

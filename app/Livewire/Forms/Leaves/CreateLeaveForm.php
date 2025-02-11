@@ -24,6 +24,9 @@ class CreateLeaveForm extends Form
     #[Rule('required|min:4')]
     public $leave_reason;
 
+    #[Rule('required')]
+    public $reliever_bio_id;
+
     public function store()
     {
         $this->validate();

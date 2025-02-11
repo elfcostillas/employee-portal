@@ -37,6 +37,7 @@ class EditLeaveRequest extends Component
         $this->form->date_to = $header->date_to;
         $this->form->leave_reason = $header->leave_reason;
         $this->form->leave_type = $header->leave_type;
+        $this->form->reliever_bio_id = $header->reliever_bio_id;
 
         if($header->sup_apporval_by || $header->manager_approval_by || $header->div_manager_approval_by)
         {
@@ -72,7 +73,8 @@ class EditLeaveRequest extends Component
     public function render()
     {
         $leave_type = $this->repo->myLeaveTypes();
-        return view('livewire.leaves.edit-leave-request',['leave_types' => $leave_type,'isAccepted' => $this->isAccepted]);
+        $reliver_list = $this->repo->releiver_list();
+        return view('livewire.leaves.edit-leave-request',['leave_types' => $leave_type,'isAccepted' => $this->isAccepted,'reliver_list' => $reliver_list]);
     }
 
     function updateDates($value,$type,$key)
@@ -103,6 +105,7 @@ class EditLeaveRequest extends Component
                 'w_pay' => 0,
                 'wo_pay' => 0
             );
+
             if($index_date->format('D')!='Sun')
             {
                 array_push($this->dates,$detail_model);

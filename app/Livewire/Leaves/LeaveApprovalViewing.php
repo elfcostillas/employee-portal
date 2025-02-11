@@ -40,7 +40,8 @@ class LeaveApprovalViewing extends Component
         $this->form->date_to = $header->date_to;
         $this->form->leave_reason = $header->leave_reason;
         $this->form->leave_type = $header->leave_type;
-        
+        $this->form->reliever_bio_id = $header->reliever_bio_id;
+
         /* Details */
 
         $details = $this->repo->getLeaveDetails($request->id);
@@ -81,6 +82,7 @@ class LeaveApprovalViewing extends Component
     public function render()
     {
         $leave_type = $this->repo->myLeaveTypes();
-        return view('livewire.leaves.leave-approval-viewing',['leave_types' => $leave_type]);
+        $reliver_list = $this->repo->releiver_list_approval();
+        return view('livewire.leaves.leave-approval-viewing',['leave_types' => $leave_type,'reliver_list' => $reliver_list]);
     }
 }

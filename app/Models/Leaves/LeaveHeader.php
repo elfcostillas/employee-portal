@@ -38,5 +38,6 @@ class LeaveHeader extends Model
         'date_to',
         'leave_reason',
         'leave_type',
+        'reliever_bio_id'
     ];
 }

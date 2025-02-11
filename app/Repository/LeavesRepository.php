@@ -57,7 +57,10 @@ class LeavesRepository
                 'leave_type',
                 'sup_approval_remarks',
                 'manager_approval_remarks',
-                'div_manager_approval_remarks'
+                'div_manager_approval_remarks',
+                'reliever_bio_id',
+                'reliever_ackwnowledge',
+                'reliever_ackwnowledge_on'
             )
             ->orderBy('id','DESC');
     }
@@ -224,7 +227,11 @@ class LeavesRepository
             'users.name',
             'sup_approval_remarks',
             'manager_approval_remarks',
-            'div_manager_approval_remarks'
+            'div_manager_approval_remarks',
+            'reliever_bio_id',
+            'reliever_ackwnowledge',
+            'reliever_ackwnowledge_on'
+
         )->orderBy('id','DESC');
     }
 
@@ -304,6 +311,31 @@ class LeavesRepository
 
         $result = DB::table('leave_headers')->where('id',$id)->update($array);
 
+        return $result;
+    }
+
+    public function releiver_list()
+    {
+        $me = new Me();
+
+        $result = DB::connection('hris')->table('employees')->where('dept_id',$me->att->dept_id)
+                    ->select(DB::raw("biometric_id,concat(ifnull(lastname,''),', ',ifnull(firstname,'')) as empname"))
+                    ->where('exit_status',1)
+                    ->where('biometric_id','!=',$me->att->biometric_id)
+                    ->get();
+        
+        return $result;
+    }
+
+    public function releiver_list_approval()
+    {
+        $me = new Me();
+
+        $result = DB::connection('hris')->table('employees')->where('dept_id',$me->att->dept_id)
+                    ->select(DB::raw("biometric_id,concat(ifnull(lastname,''),', ',ifnull(firstname,'')) as empname"))
+                    ->where('exit_status',1)
+                    ->get();
+        
         return $result;
     }
 }

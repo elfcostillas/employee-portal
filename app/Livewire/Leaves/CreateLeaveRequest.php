@@ -37,7 +37,8 @@ class CreateLeaveRequest extends Component
     {
       // $leave_type = [];
       $leave_type = $this->repo->myLeaveTypes();
-      return view('livewire.leaves.create-leave-request', ['leave_types' => $leave_type]);
+      $reliver_list = $this->repo->releiver_list();
+      return view('livewire.leaves.create-leave-request', ['leave_types' => $leave_type,'reliver_list' => $reliver_list]);
     }
 
     public function submitForm()
@@ -113,6 +114,7 @@ class CreateLeaveRequest extends Component
         'date_to' => $header_data['date_to'],
         'leave_reason' => trim($header_data['leave_reason']),
         'leave_type' => trim($header_data['leave_type']),
+        'reliever_bio_id' => $header_data['reliever_bio_id'],
       ];
 
       DB::beginTransaction();
