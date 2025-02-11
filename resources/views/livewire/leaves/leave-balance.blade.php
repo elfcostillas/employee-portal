@@ -23,9 +23,9 @@
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                 <th scope="col" class="px-6 py-3">Credits</th>
-                    <td class="px-6 py-4">{{ round($credits->vacation_leave,2) }}</td>
-                    <td class="px-6 py-4">{{ round($credits->sick_leave,2) }}</td>
-                    <td class="px-6 py-4">{{ round($credits->summer_vacation_leave,2) }}</td>
+                    <td class="px-6 py-4">{{ round($credits['vacation_leave'],2) }}</td>
+                    <td class="px-6 py-4">{{ round($credits['sick_leave'],2) }}</td>
+                    <td class="px-6 py-4">{{ round($credits['summer_vacation_leave'],2) }}</td>
                     
                 </tr>
 

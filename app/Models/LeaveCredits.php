@@ -27,12 +27,21 @@ class LeaveCredits
                 ->where('biometric_id',$this->me->att->biometric_id)
                 ->first();
 
-        return ($credits) ? $credits : [
-            'vacation_leave' => 0,
-            'sick_leave' => 0,
-            'summer_vacation_leave' => 0,
-            'paternity_leave' => 0,
+        $result =  [
+            'vacation_leave' => ($credits) ? $credits->vacation_leave : 0,
+            'sick_leave' => ($credits) ? $credits->sick_leave : 0,
+            'summer_vacation_leave' => ($credits) ? $credits->summer_vacation_leave : 0,
+            'paternity_leave' => ($credits) ? $credits->paternity_leave : 0,
         ];
+
+        return $result;
+
+        // return ($credits) ? $credits : [
+        //     'vacation_leave' => 0,
+        //     'sick_leave' => 0,
+        //     'summer_vacation_leave' => 0,
+        //     'paternity_leave' => 0,
+        // ];
     }
 
     public function getConsumedLeaves()
@@ -345,9 +354,9 @@ class LeaveCredits
         $pending = $this->getPendingLeaves();
 
         return array(
-            'vacation_leave' => $credits->vacation_leave - $consumed['vacation_leave'] - $upcoming['vacation_leave'] - $pending['vacation_leave'],
-            'sick_leave' => $credits->sick_leave - $consumed['sick_leave'] - $upcoming['sick_leave'] - $pending['sick_leave'],
-            'summer_vacation_leave' => $credits->summer_vacation_leave - $consumed['summer_vacation_leave'] - $upcoming['summer_vacation_leave'] - $pending['summer_vacation_leave'],
+            'vacation_leave' => $credits['vacation_leave']  - $consumed['vacation_leave'] - $upcoming['vacation_leave'] - $pending['vacation_leave'],
+            'sick_leave' => $credits['sick_leave'] - $consumed['sick_leave'] - $upcoming['sick_leave'] - $pending['sick_leave'],
+            'summer_vacation_leave' => $credits['summer_vacation_leave'] - $consumed['summer_vacation_leave'] - $upcoming['summer_vacation_leave'] - $pending['summer_vacation_leave'],
             'paternity_leave' => 0,
         );
     }
@@ -360,9 +369,9 @@ class LeaveCredits
         $pending = $this->getPendingLeavesUpdate($id);
 
         return array(
-            'vacation_leave' => $credits->vacation_leave - $consumed['vacation_leave'] - $upcoming['vacation_leave'] - $pending['vacation_leave'],
-            'sick_leave' => $credits->sick_leave - $consumed['sick_leave'] - $upcoming['sick_leave'] - $pending['sick_leave'],
-            'summer_vacation_leave' => $credits->summer_vacation_leave - $consumed['summer_vacation_leave'] - $upcoming['summer_vacation_leave'] - $pending['summer_vacation_leave'],
+            'vacation_leave' => $credits['vacation_leave'] - $consumed['vacation_leave'] - $upcoming['vacation_leave'] - $pending['vacation_leave'],
+            'sick_leave' => $credits['sick_leave'] - $consumed['sick_leave'] - $upcoming['sick_leave'] - $pending['sick_leave'],
+            'summer_vacation_leave' => $credits['summer_vacation_leave'] - $consumed['summer_vacation_leave'] - $upcoming['summer_vacation_leave'] - $pending['summer_vacation_leave'],
             'paternity_leave' => 0,
         );
     }
