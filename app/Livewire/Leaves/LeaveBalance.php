@@ -22,6 +22,16 @@ class LeaveBalance extends Component
 
     public $remaining;
 
+    public $me;
+    public $emp_level;
+
+    public function boot()
+    {
+        $me = new Me();
+
+        $this->emp_level = $me->my_empLevel();
+    }
+
     public function mount()
     {
         $credits = new LeaveCredits();
