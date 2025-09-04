@@ -338,4 +338,14 @@ class LeavesRepository
         
         return $result;
     }
+
+    public function get_leaves_hris()
+    {
+        /*
+                SELECT leave_request_detail.* FROM leave_request_header 
+        INNER JOIN leave_request_detail ON leave_request_header.id = leave_request_detail.header_id
+        WHERE leave_request_header.biometric_id = 847
+        AND leave_request_detail.leave_date BETWEEN '2025-01-01' AND '2025-12-31'
+        AND is_canceled = 'N';*/
+    }
 }
