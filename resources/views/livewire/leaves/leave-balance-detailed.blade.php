@@ -25,20 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                           
-                        </th>
-                        <td class="px-3 py-4">
-                            Silver
-                        </td>
-                        <td class="px-3 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-3 py-4">
-                            $2999
-                        </td>
-                    </tr>
+                    
                     
                    
                 </tbody>
