@@ -2,6 +2,7 @@
 
 namespace App\Repository\Auth;
 
+use App\Models\Me;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -9,10 +10,12 @@ class UserRights
 {
     //
     private $user;
+    private $me;
 
     function __construct()
     {
         $this->user = Auth::user();
+        $this->me = new Me();
     }
 
     function mainQuery()
@@ -25,7 +28,7 @@ class UserRights
 
     function getRights()
     {
-        // dd($this->user->id);
+        // dd($this->me->att->dept_id);
         
         $mains = $this->mainQuery()
             ->select('menu_mains.id','menu_mains.label','menu_mains.id','menu_mains.icon')
@@ -33,11 +36,24 @@ class UserRights
             ->get();
 
         foreach($mains as $main)
-        {
-            $subs = $this->mainQuery()
+        {   
+            //select menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path  from  menu_subs where id =  3
+            if($this->me->att->dept_id==8 && $main->id == 1){
+                $union = DB::table('menu_subs')->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
+                        ->where('id','=',3);
+
+                $subs = $this->mainQuery()
+                    ->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
+                    ->unionAll($union)
+                    ->where('main_id',$main->id)
+                    ->get();
+                    
+            }else{
+                $subs = $this->mainQuery()
                     ->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
                     ->where('main_id',$main->id)
                     ->get();
+            }
 
             $main->subs = $subs;
         }

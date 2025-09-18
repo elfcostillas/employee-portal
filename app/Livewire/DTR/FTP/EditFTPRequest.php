@@ -38,6 +38,7 @@ class EditFTPRequest extends Component
             $this->form->ftp_remarks = $ftp->ftp_remarks;
             $this->form->ftp_type = $ftp->ftp_type;
             $this->form->ftp_state = $ftp->ftp_state;
+            $this->form->remarks = $ftp->remarks;
 
         }
     }

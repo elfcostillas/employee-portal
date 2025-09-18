@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class MainComponent extends Component
 {
-    private $repo;
+    protected $repo;
 
     public function mount(FTPRepository $repo)
     {
@@ -22,5 +22,10 @@ class MainComponent extends Component
         $result = $this->repo->myFTP()->paginate(10);
 
         return view('livewire.d-t-r.f-t-p.main-component',['ftps' => $result]);
+    }
+
+    public function my_level()
+    {
+        return $this->repo->my_level();
     }
 }

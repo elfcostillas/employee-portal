@@ -3,6 +3,7 @@
 use App\Livewire\DTR\FTP\CreateFTPRequest;
 use App\Livewire\DTR\FTP\EditFTPRequest;
 use App\Livewire\DTR\FTP\MainComponent as FTPMainComponent;
+use App\Livewire\DTR\FTPApproval\FTPApprovalViewing;
 use App\Livewire\DTR\FTPApproval\MainComponent as FTPApprovalMainComponent;
 use App\Livewire\DTR\Logs\MainComponent as LogsMainComponent;
 use App\Livewire\IndexPage;
@@ -67,6 +68,7 @@ Route::middleware([
         Route::get('ftp-request-create',CreateFTPRequest::class);
         Route::get('ftp-request-edit/{id}',EditFTPRequest::class);
         Route::get('ftp-approval',FTPApprovalMainComponent::class);
+        Route::get('ftp-approval-view/{id}',FTPApprovalViewing::class);
     });
 
 
