@@ -92,6 +92,7 @@ class FTPRepository
                 break;
             
             case 3 :  case '3' :
+               
                 $co_dept_lower_than_me = $co_dept_lower_than_me->where('dept_id',$me->my_dept())->get();
               
                 break;
@@ -163,8 +164,8 @@ class FTPRepository
                 ftp.div_manager_approval_by,
                 ftp.div_manager_approval_on,
                 ftp.div_manager_approval_resp
-            "));
-            // ->whereIn('requested_by',$users_id);
+            "))
+            ->whereIn('requested_by',$users_id);
       
         switch($me->my_empLevel()){
             case 4 :  case '4' :
