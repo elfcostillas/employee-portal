@@ -39,7 +39,7 @@ class Payslip extends Component
 
     public function render()
     {
-        $this->payroll_period = $this->repo->get_payroll_period();
+        $this->payroll_period = $this->repo->get_payroll_viewableperiod();
         // return view('livewire.payroll.payslip');
         $period_label = $this->payslip->getPeriodLabel($this->period_id);
         $data = $this->payslip->getData($this->period_id);

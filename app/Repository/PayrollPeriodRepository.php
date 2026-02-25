@@ -41,16 +41,29 @@ class PayrollPeriodRepository
             $result = DB::connection('hris')->table('posting_info')
                         ->where('trans_type','=','confi')
                         ->select('period_id')
+                        ->orderBy('period_id','desc')
                         ->first();
         }else{
 
             $result = DB::connection('hris')->table('posting_info')
                     ->where('trans_type','=','non-confi')
                     ->select('period_id')
+                    ->orderBy('period_id','desc')
                     ->first();
         }
 
         return $result;
+    }
+
+    public function get_payroll_viewableperiod()
+    {
+        $last_posted = $this->get_last_posted();
+        return $this->mainQuery()
+                ->where('date_from','>=','2025-01-01')
+                ->where('id','<=',$last_posted->period_id)
+                ->select(DB::raw("id,CONCAT(DATE_FORMAT(date_from,'%m/%d/%Y'),' - ',DATE_FORMAT(date_to,'%m/%d/%Y')) AS period_label"))
+                ->orderBy('id','desc')
+                ->get();
     }
 
 }
