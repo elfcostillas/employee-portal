@@ -15,6 +15,7 @@ use App\Livewire\Leaves\LeaveApprovalViewing;
 use App\Livewire\Leaves\LeaveBalance;
 use App\Livewire\Leaves\LeaveBalanceDetailed;
 use App\Livewire\Leaves\MainComponent as LeavesMainComponent;
+use App\Livewire\Payroll\Payslip;
 use App\Livewire\UserManagement\MainComponent as UserManagementMainComponent;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -88,6 +89,13 @@ Route::middleware([
 
     Route::prefix('management')->group(function(){
         Route::get('user-rights',UserManagementMainComponent::class);
+    });
+
+    Route::prefix('payroll')->group(function(){
+        Route::prefix('payslip')->group(function(){
+            Route::get('/',Payslip::class);
+        });
+
     });
 
 

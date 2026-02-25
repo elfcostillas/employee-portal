@@ -5,7 +5,7 @@ namespace App\Repository;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Me;
 
 class PayrollPeriodRepository
 {
@@ -33,8 +33,24 @@ class PayrollPeriodRepository
         return $result;
     }
 
+    public function get_last_posted()
+    {
+        $me = new Me();
 
+        if($me->att->emp_level < 5){
+            $result = DB::connection('hris')->table('posting_info')
+                        ->where('trans_type','=','confi')
+                        ->select('period_id')
+                        ->first();
+        }else{
 
+            $result = DB::connection('hris')->table('posting_info')
+                    ->where('trans_type','=','non-confi')
+                    ->select('period_id')
+                    ->first();
+        }
 
+        return $result;
+    }
 
 }

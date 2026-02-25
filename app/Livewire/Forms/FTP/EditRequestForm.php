@@ -34,6 +34,7 @@ class EditRequestForm extends Form
     #[Rule('required')]
     public $ftp_type;
 
+    public $name;
     // public $remarks;
 
     public function store()
