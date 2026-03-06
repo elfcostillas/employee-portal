@@ -49,6 +49,8 @@ Livewire::setUpdateRoute(function ($handle) {
     return Route::post('/employee-portal/livewire/update', $handle);
 });
 
+// Route::get('print',[Payslip::class,'downloadPdf']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

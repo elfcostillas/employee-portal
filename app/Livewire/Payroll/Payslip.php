@@ -6,6 +6,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Repository\PayrollPeriodRepository;
 use App\Repository\PayslipRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
 #[Layout('custom-layout.app')]
@@ -66,7 +67,32 @@ class Payslip extends Component
                     'period_label' => $period_label
             ]);
         }
+    }
 
+    public function downloadPdf()
+    {
+        $data = $this->payslip->getData($this->period_id);
+        $period_label = $this->payslip->getPeriodLabel($this->period_id);
+        // $rep = app(PayslipRepository::class);
+        // $data = $rep->getData(78);
+        // $period_label = $rep->getPeriodLabel(78);
+
+        $pdf = Pdf::loadView('livewire.payroll.payslip-pdf', [
+            'e' => $data,
+            'period_label' => $period_label
+        ])->setPaper('letter','portrait');
+
+        // $pdf->output();
+        // $dom_pdf = $pdf->getDomPDF();
+
+        // return $pdf->download('Payslip.pdf');
         
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'Payslip.pdf');
+
+        // return response()->streamDownload(function() use ($pdf) {
+        //     echo $pdf->stream();
+        // }, 'payslip.pdf');
     }
 }

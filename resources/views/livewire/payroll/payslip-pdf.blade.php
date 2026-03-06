@@ -1,20 +1,18 @@
-
-<div>
-    <label for="period_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-    <select wire:model.live="period_id" name="period_id" id="period_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option value="" >Choose a period</option>
-        @foreach($payroll_period as $period)
-            <option value="{{$period->id}}"> {{ $period->period_label }} </option>
-        @endforeach
-    </select>
-    <div class="payslipBorder">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLR Payslip</title>
+</head>
+<body>
         <table class="payslipTable" border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
             <tr>
                 <td colspan="2"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP </b>  </td>
-                            <td class="pad4" width="50%" style="text-align:right" > <img height="48px" src="{{ asset('images/jlr-logo.jpg') }}" alt=""> </td>
+                            <td class="pad4" width="50%" style="text-align:right" > <img height="48px" src="{{ public_path('images/jlr-logo.jpg') }}" alt=""> </td>
                         </tr>
                     </table>
                 </td>
@@ -46,7 +44,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="1"> 
+                <td colspan="1" style="width:50%"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
                            @if($e->is_daily=='Y')
@@ -60,7 +58,7 @@
                 <td colspan="1"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                           
+                            <td class="pad4"> &nbsp; </td>
                         </tr>
                     </table>
                 </td>
@@ -75,7 +73,7 @@
                             @if($b->amount>0)
                                 <tr>
                                     <td class="pad4" style="text-align:left;" width="60%" > {{ $b->name }}</td>
-                                    <td class="pad4" style="text-align:right;" width="10%" > {{ $b->days }}</td>
+                                    <td class="pad4" style="text-align:right;padding-right:4px" width="10%" > {{ $b->days }}</td>
                                     <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($b->amount,2) }}</td>
                                 </tr>
                             @endif
@@ -113,7 +111,7 @@
                                     
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $allowance->name }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" > {{ $allowance->days }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px" width="10%" > {{ $allowance->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($allowance->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -131,7 +129,7 @@
                                 @if($rd->amount>0)
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $rd->name }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" > {{ $rd->days }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px;" width="10%" > {{ $rd->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($rd->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -149,7 +147,7 @@
                                 @if($reghol->amount>0)
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $reghol->name }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" > {{ $reghol->days }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px" width="10%" > {{ $reghol->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($reghol->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -167,7 +165,7 @@
                                 @if($sphol->amount>0)
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $sphol->name }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" > {{ $sphol->days }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px;" width="10%" > {{ $sphol->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($sphol->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -185,7 +183,7 @@
                                 @if($dblhol->amount>0)
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $dblhol->name }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" > {{ $dblhol->days }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px;" width="10%" > {{ $dblhol->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($dblhol->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -194,7 +192,7 @@
                     @endif
                     <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
-                            <td class="pad4" colspan="2" width="70%" ><b>Gross Pay</b></td>
+                            <td class="pad4"  width="70%" ><b>Gross Pay</b></td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->gross_pay,2) }} </td>
                         </tr>
                     </table>
@@ -207,7 +205,7 @@
                                 @if($oe->amount>0)
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $oe->description }}</td>
-                                        <td class="pad4" style="text-align:right;" width="10%" ></td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px" width="10%" ></td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" oe="30%" > {{ number_format($oe->amount,2) }}</td>
                                     </tr>
                                 @endif
@@ -288,13 +286,13 @@
                             </tr>
                             @foreach($e->installments['list'] as $inst)
                                 @if($inst->amount>0)
+                                   
                                     <tr>
-                                        <tr>
-                                            <td class="pad4" width="45%" ></td>
-                                            <td class="pad4" width="25%"  style="text-align:center;font-size:9pt;">Running Bal.</td>
-                                            <td class="pad4" width="30%"  style="text-align:center;font-size:9pt;">Current Deduction</td>
-                                        </tr>
+                                        <td class="pad4" width="45%" ></td>
+                                        <td class="pad4" width="25%"  style="text-align:center;font-size:9pt;">Running Bal.</td>
+                                        <td class="pad4" width="30%"  style="text-align:center;font-size:9pt;">Current Deduction</td>
                                     </tr>
+                                    
                                     <tr>
                                         <td class="pad4" >{{ $inst->description }}</td>
                                         <td class="pad4"  style="text-align:right;padding-right:4px;">{{ number_format($inst->balance,2) }}</td>
@@ -310,7 +308,7 @@
                 <td>
                     <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
-                            <td class="pad4" colspan="2" width="70%" ><b>Gross Total</b></td>
+                            <td class="pad4"  width="70%" ><b>Gross Total</b></td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->gross_total,2) }} </td>
                         </tr>
                     </table>
@@ -318,26 +316,26 @@
                 <td>
                     <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
-                            <td class="pad4" colspan="2" width="70%" >Total Deduction</td>
+                            <td class="pad4" width="70%" >Total Deduction</td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->total_deduction,2) }} </td>
                         </tr>
                     </table>
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>&nbsp;</td>
                 <td>
                     <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;font-size:9pt;">
                         <tr>
-                            <td class="pad4" colspan="2" width="70%" ><b>Net Pay </b> </td>
+                            <td class="pad4" width="70%" ><b>Net Pay </b> </td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"><b> {{ number_format($e->net_pay,2) }} </b></td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
-    </div>
-    <button wire:click="downloadPdf" type="button" class="mt-4 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-        Download PDF
-    </button>
-</div>
+        <br>
+
+        <hr style="border : 1px dashed">
+</body>
+</html>
