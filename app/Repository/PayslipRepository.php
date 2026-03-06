@@ -30,7 +30,7 @@ class PayslipRepository
             ->leftJoin('departments','departments.id','=','dept_id')
             ->where('employees.biometric_id','=',$me->att->biometric_id)
             ->where('period_id',$period_id)
-            ->select(DB::raw("payrollregister_posted_s.*,dept_id,division_id,concat(lastname,', ',firstname) as employee_name,suffixname,dept_name"))
+            ->select(DB::raw("payrollregister_posted_s.*,dept_id,division_id,concat(lastname,', ',firstname ,' ',if(trim(middlename)!='',concat(SUBSTR(IFNULL(middlename,''),1,1),'.'),''),IFNULL(suffixname,'') ) as employee_name ,suffixname,dept_name"))
             ->first();
 
 
