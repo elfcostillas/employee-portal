@@ -11,9 +11,17 @@
                 {{ session('status') }}
             </div>
         @endif
+         
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
+          
+             <div style="text-align:center;font-weight:bold;font-size:16pt;">
+                JLR Construction and Aggregates Inc.
+            </div>
+            <div style="text-align:center;font-weight:bold;font-size:16pt;margin-bottom:16px;">
+                 Employee Portal
+            </div>
 
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
