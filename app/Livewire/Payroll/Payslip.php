@@ -30,10 +30,12 @@ class Payslip extends Component
     {
         $default = $this->repo->get_last_posted();
 
-        if(!is_null($default)){
+        if(is_null($default)){
             // $this->period_id = $default->id;
             $this->period_id = 77;
 
+        }else{
+            $this->period_id = $default->period_id;
         }
 
     }

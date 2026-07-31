@@ -6,7 +6,7 @@
     <title>JLR Payslip</title>
 </head>
 <body>
-        <table class="payslipTable" border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
+        <table  border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
             <tr>
                 <td colspan="2"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
@@ -21,7 +21,7 @@
                 <td colspan="2"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                            <td class="pad4" width="50%"><b> Payroll Period : </b> {{$period_label->date_range}} </td>
+                            <td class="pad4" width="50%"><b> Payroll Period : </b>{{ $period_label->date_range ?? '' }}</td>
                             <td class="pad4" width="50%"><b> </b> </td>
                         </tr>
                     </table>
@@ -206,7 +206,7 @@
                                     <tr>
                                         <td class="pad4" style="text-align:left;" width="60%" > {{ $oe->description }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px" width="10%" ></td>
-                                        <td class="pad4" style="text-align:right;padding-right:4px;" oe="30%" > {{ number_format($oe->amount,2) }}</td>
+                                        <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($oe->amount,2) }}</td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -221,7 +221,7 @@
                             <td colspan="2" class="pad4 headings"><b>Government Contributions</b></td>
                         </tr>
                         <tr>
-                            <td class="pad4" width="70%%" >SSS Contribution</td>
+                            <td class="pad4" width="70%" >SSS Contribution</td>
                             <td class="pad4" width="30%"  style="text-align:right;padding-right:4px;">{{  ($e->sss_prem > 0) ? number_format($e->sss_prem,2) : '-' }}</td>
                         </tr>
                         <tr>
@@ -249,11 +249,9 @@
                             @foreach($e->gov_loan['list'] as $govLoan)
                                 @if($govLoan->amount>0)
                                     <tr>
-                                        <tr>
-                                            <td class="pad4" width="45%" ></td>
-                                            <td class="pad4" width="25%"  style="text-align:center;font-size:9pt;">Running Bal.</td>
-                                            <td class="pad4" width="30%"  style="text-align:center;font-size:9pt;">Current Deduction</td>
-                                        </tr>
+                                        <td class="pad4" width="45%" ></td>
+                                        <td class="pad4" width="25%"  style="text-align:center;font-size:9pt;">Running Bal.</td>
+                                        <td class="pad4" width="30%"  style="text-align:center;font-size:9pt;">Current Deduction</td>
                                     </tr>
                                     <tr>
                                         <td class="pad4" >{{ $govLoan->description }}</td>
@@ -334,7 +332,7 @@
                 </td>
             </tr>
         </table>
-        <br>
+     
 
         <hr style="border : 1px dashed">
 </body>
