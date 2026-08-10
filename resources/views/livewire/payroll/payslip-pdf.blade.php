@@ -31,7 +31,7 @@
                 <td colspan="1"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                            <td class="pad4"><b> Name : {{ $e->employee_name }} {{ $e->suffixname }}  </b> </td>
+                            <td class="pad4"><b> Name : {{ $e->employee_name }}  </b> </td>
                         </tr>
                     </table>
                 </td>
