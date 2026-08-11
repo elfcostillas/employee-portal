@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JLR Payslip</title>
+    <style>
+       
+        #watermark {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
+        <div style="background-image: url('{{ public_path('images/logo-circle3.png') }}'); background-position: center;background-margin:4px ; background-size: 74px; opacity: 0.2; position: absolute; width: 100%; height: 290px; z-index: -1;"></div>
+           
+        
+
         <table  border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
             <tr>
                 <td colspan="2"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                            <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP </b>  </td>
+                            <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP</b>  </td>
                             <td class="pad4" width="50%" style="text-align:right" > <img height="48px" src="{{ public_path('images/jlr-logo.jpg') }}" alt=""> </td>
                         </tr>
                     </table>
@@ -92,7 +107,7 @@
                         @foreach($e->slvl as $leave)
                                 @if($leave->amount>0)
                                     <tr>
-                                        <td class="pad4" style="text-align:left;" width="60%" > {{ $leave->name }} (Hrs)</td>
+                                        <td class="pad4" style="text-align:left;" width="60%" > {{ $leave->name }} (Days)</td>
                                         <td class="pad4" style="text-align:right;" width="10%" > {{ $leave->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($leave->amount,2) }}</td>
                                     </tr>
@@ -332,6 +347,7 @@
                 </td>
             </tr>
         </table>
+        </div>
      
 
         <hr style="border : 1px dashed">

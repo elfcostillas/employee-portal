@@ -28,6 +28,7 @@ class Payslip extends Component
 
     public function mount()
     {
+       
         $default = $this->repo->get_last_posted();
 
         if(is_null($default)){
@@ -42,6 +43,7 @@ class Payslip extends Component
 
     public function render()
     {
+      
         $this->payroll_period = $this->repo->get_payroll_viewableperiod();
         // return view('livewire.payroll.payslip');
         $period_label = $this->payslip->getPeriodLabel($this->period_id);
@@ -60,6 +62,7 @@ class Payslip extends Component
 
     public function updated($property)
     {
+       
         if($property == 'period_id'){
            $data = $this->payslip->getData($this->period_id);
            $period_label = $this->payslip->getPeriodLabel($this->period_id);
@@ -73,11 +76,13 @@ class Payslip extends Component
 
     public function downloadPdf()
     {
+       
         $data = $this->payslip->getData($this->period_id);
+        
         $period_label = $this->payslip->getPeriodLabel($this->period_id);
         // $rep = app(PayslipRepository::class);
-        // $data = $rep->getData(78);
-        // $period_label = $rep->getPeriodLabel(78);
+        // $data = $rep->getData(88);
+        // $period_label = $rep->getPeriodLabel(88);
 
         $pdf = Pdf::loadView('livewire.payroll.payslip-pdf', [
             'e' => $data,
@@ -87,7 +92,7 @@ class Payslip extends Component
         // $pdf->output();
         // $dom_pdf = $pdf->getDomPDF();
 
-        // return $pdf->download('Payslip.pdf');
+        // return $pdf->stream('Payslip.pdf');
         
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();

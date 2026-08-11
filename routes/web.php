@@ -43,10 +43,12 @@ Route::get('dashboard', function () {
 
 Livewire::setScriptRoute(function ($handle) {
     return Route::get('employee-portal/livewire/livewire.js', $handle);
+    // return Route::get('e-portal/livewire/livewire.js', $handle);
 });
 
 Livewire::setUpdateRoute(function ($handle) {
     return Route::post('/employee-portal/livewire/update', $handle);
+    // return Route::post('/e-portal/livewire/update', $handle);
 });
 
 // Route::get('print',[Payslip::class,'downloadPdf']);

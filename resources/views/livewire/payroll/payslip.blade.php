@@ -13,7 +13,7 @@
                 <td colspan="2"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                            <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP </b>  </td>
+                            <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP</b>  </td>
                             <td class="pad4" width="50%" style="text-align:right" > <img height="48px" src="{{ asset('images/jlr-logo.jpg') }}" alt=""> </td>
                         </tr>
                     </table>
@@ -33,7 +33,7 @@
                 <td colspan="1"> 
                     <table border=1 style="border-collapse:collapse;width:100%;">
                         <tr>
-                            <td class="pad4"><b> Name : {{ $e->employee_name }}  </b> </td>
+                            <td class="pad4"><b> Name : {{ $e->employee_name }} </b> </td>
                         </tr>
                     </table>
                 </td>
@@ -94,7 +94,7 @@
                         @foreach($e->slvl as $leave)
                                 @if($leave->amount>0)
                                     <tr>
-                                        <td class="pad4" style="text-align:left;" width="60%" > {{ $leave->name }} (Hrs)</td>
+                                        <td class="pad4" style="text-align:left;" width="60%" > {{ $leave->name }} (Days)</td>
                                         <td class="pad4" style="text-align:right;" width="10%" > {{ $leave->days }}</td>
                                         <td class="pad4" style="text-align:right;padding-right:4px;" width="30%" > {{ number_format($leave->amount,2) }}</td>
                                     </tr>
