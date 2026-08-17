@@ -42,6 +42,8 @@
             <p class=" font-normal text-gray-700 dark:text-gray-400"> <b>Loan Amount : </b> {{ number_format($loan_header->total_amount,2)}}</p>
             <p class=" font-normal text-gray-700 dark:text-gray-400"> <b>Ammortization : </b> {{ number_format($loan_header->ammortization,2) }}</p>
             <p class=" font-normal text-gray-700 dark:text-gray-400"> <b>Balance : </b> {{ number_format($balance,2) }}</p>
+            <p class=" font-normal text-gray-700 dark:text-gray-400"> <b>Active Loan : </b> {{ ($loan_header->is_stopped == 'Y') ? 'No' : 'Yes'}}</p>
+
         </div>
     </div>
 
