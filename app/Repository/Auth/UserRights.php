@@ -39,19 +39,21 @@ class UserRights
         {   
             //select menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path  from  menu_subs where id =  3
             if($this->me->att->dept_id==8 && $main->id == 1){
-                $union = DB::table('menu_subs')->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
+                $union = DB::table('menu_subs')->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path,menu_subs.sorter"))
                         ->where('id','=',3);
 
                 $subs = $this->mainQuery()
-                    ->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
+                    ->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path,menu_subs.sorter"))
                     ->unionAll($union)
                     ->where('main_id',$main->id)
+                    ->orderBy('sorter')
                     ->get();
                     
             }else{
                 $subs = $this->mainQuery()
                     ->select(DB::raw("menu_subs.id,menu_subs.label,menu_subs.icon,menu_subs.path"))
                     ->where('main_id',$main->id)
+                    ->orderBy('sorter')
                     ->get();
             }
 

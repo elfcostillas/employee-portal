@@ -15,6 +15,9 @@ use App\Livewire\Leaves\LeaveApprovalViewing;
 use App\Livewire\Leaves\LeaveBalance;
 use App\Livewire\Leaves\LeaveBalanceDetailed;
 use App\Livewire\Leaves\MainComponent as LeavesMainComponent;
+use App\Livewire\Loans\CompanyLoan;
+use App\Livewire\Loans\GovernmentLoan;
+use App\Livewire\Loans\ViewLoan;
 use App\Livewire\Payroll\Payslip;
 use App\Livewire\UserManagement\MainComponent as UserManagementMainComponent;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +101,16 @@ Route::middleware([
     Route::prefix('payroll')->group(function(){
         Route::prefix('payslip')->group(function(){
             Route::get('/',Payslip::class);
+        });
+
+        Route::prefix('gov-loans')->group(function(){
+            Route::get('/',GovernmentLoan::class);
+            Route::get('view/{id}',ViewLoan::class);
+        });
+
+        Route::prefix('company-loans')->group(function(){
+            Route::get('/',CompanyLoan::class);
+            Route::get('view/{id}',ViewLoan::class);
         });
 
     });
