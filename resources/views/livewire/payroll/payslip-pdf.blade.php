@@ -14,17 +14,26 @@
             opacity: 0.3;
             z-index: -1;
         }
+
+        .td-border {
+            border : 1px solid black;
+        }
+
+        * {
+            /* font-family: 'Courier New', Courier, monospace; */
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
-        <div style="background-image: url('{{ public_path('images/logo-circle3.png') }}'); background-position: center;background-margin:4px ; background-size: 74px; opacity: 0.2; position: absolute; width: 100%; height: 290px; z-index: -1;"></div>
+        <div style="background-image: url('{{ public_path('images/jl_straight.png') }}'); background-position: center;background-margin:4px ; background-size: 64px; opacity: 0.3; position: absolute; width: 100%; height: 290px; z-index: -1;"></div>
            
         
 
-        <table  border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
+        <table  border=1 style="border:2px solid black;border-collapse:collapse;page-break-inside: avoid;font-size:10pt; width:100%" >
             <tr>
-                <td colspan="2"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td class="td-border" colspan="2"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4" width="50%" style="font-size:16pt !important;" ><b>PAYSLIP</b>  </td>
                             <td class="pad4" width="50%" style="text-align:right" > <img height="48px" src="{{ public_path('images/jlr-logo.jpg') }}" alt=""> </td>
@@ -33,8 +42,8 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td  class="td-border" colspan="2"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4" width="50%"><b> Payroll Period : </b>{{ $period_label->date_range ?? '' }}</td>
                             <td class="pad4" width="50%"><b> </b> </td>
@@ -43,15 +52,15 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="1"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td  class="td-border" colspan="1"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4"><b> Name : {{ $e->employee_name }}  </b> </td>
                         </tr>
                     </table>
                 </td>
-                <td colspan="1"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td  class="td-border" colspan="1"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4"><b> Department :  </b> {{ $e->dept_name }} </td>
                         </tr>
@@ -59,8 +68,8 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="1" style="width:50%"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td class="td-border" colspan="1" style="width:50%"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                            @if($e->is_daily=='Y')
                             <td class="pad4"> Daily Rate : {{ number_format($e->daily_rate,2)}} </td>
@@ -70,8 +79,8 @@
                         </tr>
                     </table>
                 </td>
-                <td colspan="1"> 
-                    <table border=1 style="border-collapse:collapse;width:100%;">
+                <td class="td-border" colspan="1"> 
+                    <table border=0 style="border-collapse:collapse;width:100%;">
                         <tr>
                             <td class="pad4"> &nbsp; </td>
                         </tr>
@@ -79,8 +88,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="width:50%;vertical-align:top;">
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                <td class="td-border" style="width:50%;vertical-align:top;">
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
                             <td colspan="3" class="pad4 headings"><b> Basic Earnings </b> </td>
                         </tr>
@@ -117,7 +126,7 @@
                     </table>
 
                     @if($e->allowances['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                        <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Allowances</b></td>
                             </tr>
@@ -136,7 +145,7 @@
                     @endif
                    
                     @if($e->restday['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                        <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Rest Day</b></td>
                             </tr>
@@ -154,7 +163,7 @@
                     @endif
 
                     @if($e->legalHol['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                        <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Legal Holiday</b></td>
                             </tr>
@@ -172,7 +181,7 @@
                     @endif
                     
                     @if($e->specialHol['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                        <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Special Holiday</b></td>
                             </tr>
@@ -205,14 +214,14 @@
                             @endforeach
                         </table>
                     @endif
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
                             <td class="pad4"  width="70%" ><b>Gross Pay</b></td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->gross_pay,2) }} </td>
                         </tr>
                     </table>
                     @if($e->otherEearnings['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                        <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Other Earnings</b></td>
                             </tr>
@@ -230,8 +239,8 @@
                     @endif
                    
                 </td>
-                <td style="width:50%;vertical-align:top;">
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                <td class="td-border"  style="width:50%;vertical-align:top;">
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
                             <td colspan="2" class="pad4 headings"><b>Government Contributions</b></td>
                         </tr>
@@ -257,7 +266,7 @@
                         </tr>
                     </table>
                     @if($e->gov_loan['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%">
+                        <table border=0 style="border-collapse:collapse;width:100%">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Government Loans</b></td>
                             </tr>
@@ -278,7 +287,7 @@
                         </table>
                     @endif
                     @if($e->fixedDeduction['total']>0)
-                    <table border=1 style="border-collapse:collapse;width:100%">
+                    <table border=0 style="border-collapse:collapse;width:100%">
                         <tr>
                             <td colspan="3" class="pad4 headings"><b>Fixed and Onetime Deductions</b></td>
                         </tr>
@@ -293,7 +302,7 @@
                     </table>
                     @endif
                     @if($e->installments['total']>0)
-                        <table border=1 style="border-collapse:collapse;width:100%">
+                        <table border=0 style="border-collapse:collapse;width:100%">
                             <tr>
                                 <td colspan="3" class="pad4 headings"><b>Installments</b></td>
                             </tr>
@@ -318,16 +327,16 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                <td class="td-border"  >
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
                             <td class="pad4"  width="70%" ><b>Gross Total</b></td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->gross_total,2) }} </td>
                         </tr>
                     </table>
                 </td>
-                <td>
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
+                <td class="td-border" >
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;">
                         <tr>
                             <td class="pad4" width="70%" >Total Deduction</td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"> {{ number_format($e->total_deduction,2) }} </td>
@@ -337,8 +346,8 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>
-                    <table border=1 style="border-collapse:collapse;width:100%;margin-bottom:1px;font-size:9pt;">
+                <td class="td-border" >
+                    <table border=0 style="border-collapse:collapse;width:100%;margin-bottom:1px;font-size:9pt;">
                         <tr>
                             <td class="pad4" width="70%" ><b>Net Pay </b> </td>
                             <td class="pad4" style="text-align:right;padding-right:4px;"><b> {{ number_format($e->net_pay,2) }} </b></td>

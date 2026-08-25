@@ -23,8 +23,6 @@ class PayslipRepository
     public function getData($period_id){
         $me = new Me();
 
-        // dd($me->att,$period_id);
-
         $data = DB::connection('hris')->table('payrollregister_posted_s')
             ->join('employees','employees.biometric_id','=','payrollregister_posted_s.biometric_id')
             ->leftJoin('departments','departments.id','=','dept_id')
