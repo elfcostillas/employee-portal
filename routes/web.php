@@ -6,6 +6,7 @@ use App\Livewire\DTR\FTP\MainComponent as FTPMainComponent;
 use App\Livewire\DTR\FTPApproval\FTPApprovalViewing;
 use App\Livewire\DTR\FTPApproval\MainComponent as FTPApprovalMainComponent;
 use App\Livewire\DTR\Logs\MainComponent as LogsMainComponent;
+use App\Livewire\DTR\Logs\MainDTRTableComponent;
 use App\Livewire\IndexPage;
 use App\Livewire\LeaveCredits\MainComponent;
 use App\Livewire\Leaves\CreateLeaveRequest;
@@ -46,7 +47,7 @@ Route::get('dashboard', function () {
 
 Livewire::setScriptRoute(function ($handle) {
     return Route::get('employee-portal/livewire/livewire.js', $handle);
-    return Route::get('e-portal/livewire/livewire.js', $handle);
+    // return Route::get('e-portal/livewire/livewire.js', $handle);
 });
 
 Livewire::setUpdateRoute(function ($handle) {
@@ -70,6 +71,8 @@ Route::middleware([
     // Route::get('dtr/ftp-approval',FTPApprovalMainComponent::class);
 
     Route::get('dtr/view-dtr',LogsMainComponent::class);
+
+    Route::get('dtr/view-dtr-table',MainDTRTableComponent::class);
 
     Route::prefix('dtr')->group(function(){
         Route::get('ftp-request',FTPMainComponent::class);
