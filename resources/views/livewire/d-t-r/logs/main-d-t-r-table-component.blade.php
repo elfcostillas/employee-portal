@@ -9,6 +9,21 @@
         }
     }
 ?>
+<style>
+    .responsive-table {
+    font-size: 8pt !important;
+   
+}
+
+@media (min-width: 768px) {
+    .responsive-table {
+        font-size: 10pt !important;
+       
+    }
+
+   
+}
+</style>
 <div>
 
 
@@ -22,8 +37,8 @@
 
     @if($logs)
         <div class="mt-2 relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" style="font-size: 10pt;">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400 responsive-table">
+                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-2 py-2">
                             Day
