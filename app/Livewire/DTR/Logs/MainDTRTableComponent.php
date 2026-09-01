@@ -7,11 +7,9 @@ use App\Repository\LogsRepository;
 use App\Repository\PayrollPeriodRepository;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
-
 use Livewire\Component;
 
 #[Layout('custom-layout.app')]
-
 class MainDTRTableComponent extends Component
 {
 
@@ -21,6 +19,7 @@ class MainDTRTableComponent extends Component
     public $payroll_period;
     public $period_id;
     public $logs;
+
     public $carbonDate = 'App\Livewire\DTR\Logs\MainComponent::carbonDateFN';
 
     public function boot(PayrollPeriodRepository $repo,LogsRepository $logs_repo)
@@ -45,6 +44,7 @@ class MainDTRTableComponent extends Component
 
     public function updated($property)
     {
+       
         if($property == 'period_id')
         {
             $this->logs = $this->logs_repo->get_dtr_table($this->period_id);

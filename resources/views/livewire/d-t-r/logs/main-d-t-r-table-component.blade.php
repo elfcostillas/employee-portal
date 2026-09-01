@@ -9,21 +9,7 @@
         }
     }
 ?>
-<style>
-    .responsive-table {
-    font-size: 8pt !important;
-   
-}
 
-@media (min-width: 768px) {
-    .responsive-table {
-        font-size: 10pt !important;
-       
-    }
-
-   
-}
-</style>
 <div>
 
 

@@ -9,7 +9,6 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('custom-layout.app')]
-
 class MainComponent extends Component
 {
 
