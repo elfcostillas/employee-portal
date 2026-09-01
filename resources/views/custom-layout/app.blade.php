@@ -10,7 +10,7 @@
     */
     ?>
 
-    <link rel="stylesheet" href="{{ asset('public/build/assets/app-CO-dBAvn.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/build/assets/app-Cj_hMY8Z.css') }}">
     <style>
 
         
