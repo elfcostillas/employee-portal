@@ -474,17 +474,52 @@ class PayslipRepository
     {
         $earnings=[];
         
-        array_push($earnings, (object) [
-            'name' => 'Basic Pay (Days)',
-            'days'=> $e->ndays,
-            'amount' => $e->basic_pay
-        ]);
+        if($e->ndays > 1) {
+            array_push($earnings, (object) [
+                'name' => 'Basic Pay (Days)',
+                'days'=> $e->ndays,
+                'amount' => $e->basic_pay
+            ]);
+        }else{
+            array_push($earnings, (object) [
+                'name' => 'Basic Pay (Day)',
+                'days'=> $e->ndays,
+                'amount' => $e->basic_pay
+            ]);
+        }
+      
 
-        array_push($earnings, (object) [
-            'name' => 'Late (Hrs)',
-            'days'=> $e->late_eq,
-            'amount' => $e->late_eq_amount
-        ]);
+        if($e->late_eq > 1) {
+            array_push($earnings, (object) [
+                'name' => 'Late (Hrs)',
+                'days'=> $e->late_eq,
+                'amount' => $e->late_eq_amount
+            ]);
+        }else{
+            array_push($earnings, (object) [
+                'name' => 'Late (Hr)',
+                'days'=> $e->late_eq,
+                'amount' => $e->late_eq_amount
+            ]);
+        }
+
+      
+
+        if($e->under_time > 1) {
+            array_push($earnings, (object) [
+                'name' => 'Undertime (Hrs)',
+                'days'=> $e->under_time,
+                'amount' => $e->under_time_amount
+            ]);
+
+        }else{
+            
+            array_push($earnings, (object) [
+                'name' => 'Undertime (Hr)',
+                'days'=> $e->under_time,
+                'amount' => $e->under_time_amount
+            ]);
+        }
 
         array_push($earnings, (object) [
             'name' => 'Undertime (Hrs)',
@@ -492,11 +527,22 @@ class PayslipRepository
             'amount' => $e->under_time_amount
         ]);
 
-        array_push($earnings, (object) [
-            'name' => 'Absent (Hrs)',
-            'days'=> $e->absences,
-            'amount' => $e->absences_amount
-        ]);
+        if($e->absences > 1) {
+            array_push($earnings, (object) [
+                'name' => 'Absent (Days)',
+                'days'=> $e->absences,
+                'amount' => $e->absences_amount
+            ]);
+        }else{
+            
+            array_push($earnings, (object) [
+                'name' => 'Absent (Day)',
+                'days'=> $e->absences,
+                'amount' => $e->absences_amount
+            ]);
+        }
+
+      
         
         return collect($earnings);
     }
