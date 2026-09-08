@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-        <div style="background-image: url('{{ public_path('images/jl_straight.png') }}'); background-position: center;background-margin:4px ; background-size: 64px; opacity: 0.3; position: absolute; width: 100%; height: 290px; z-index: -1;"></div>
+        <div style="background-image: url('{{ public_path('images/jl_straight.png') }}'); background-position: center;background-margin:4px ; background-size: 64px; opacity: 0.4; position: absolute; width: 100%; height: 290px; z-index: -1;"></div>
            
         
 
