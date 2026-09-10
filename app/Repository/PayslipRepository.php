@@ -521,11 +521,11 @@ class PayslipRepository
             ]);
         }
 
-        array_push($earnings, (object) [
-            'name' => 'Undertime (Hrs)',
-            'days'=> $e->under_time,
-            'amount' => $e->under_time_amount
-        ]);
+        // array_push($earnings, (object) [
+        //     'name' => 'Undertime (Hrs)',
+        //     'days'=> $e->under_time,
+        //     'amount' => $e->under_time_amount
+        // ]);
 
         if($e->absences > 1) {
             array_push($earnings, (object) [
