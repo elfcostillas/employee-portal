@@ -43,16 +43,22 @@ class Payslip extends Component
 
     public function render()
     {
-      
-        $this->payroll_period = $this->repo->get_payroll_viewableperiod();
-        // return view('livewire.payroll.payslip');
-        $period_label = $this->payslip->getPeriodLabel($this->period_id);
-        $data = $this->payslip->getData($this->period_id);
+        if($this->period_id != ""){
+            $this->payroll_period = $this->repo->get_payroll_posted_viewableperiod();
+            // return view('livewire.payroll.payslip');
+            $period_label = $this->payslip->getPeriodLabel($this->period_id);
+            $data = $this->payslip->getData($this->period_id);
 
-        return view('livewire.payroll.payslip',[
-                'e' => $data,
-                'period_label' => $period_label
-        ]);
+            return view('livewire.payroll.payslip',[
+                    'e' => $data,
+                    'period_label' => $period_label
+            ]);
+        }else{
+            return view('livewire.payroll.payslip',[
+                    'e' => null,
+                    'period_label' => null
+            ]);
+        }
     }
 
     static function carbonDateFN($date)
@@ -63,7 +69,8 @@ class Payslip extends Component
     public function updated($property)
     {
        
-        if($property == 'period_id'){
+        if($property == 'period_id' && $this->period_id != ""){
+           
            $data = $this->payslip->getData($this->period_id);
            $period_label = $this->payslip->getPeriodLabel($this->period_id);
 
@@ -71,32 +78,39 @@ class Payslip extends Component
                     'e' => $data,
                     'period_label' => $period_label
             ]);
+        }else{
+            return view('livewire.payroll.payslip',[
+                    'e' => null,
+                    'period_label' => null
+            ]);
         }
     }
 
     public function downloadPdf()
     {
-       
-        $data = $this->payslip->getData($this->period_id);
+        if($this->period_id != ""){
+            $data = $this->payslip->getData($this->period_id);
+            
+            $period_label = $this->payslip->getPeriodLabel($this->period_id);
+            // $rep = app(PayslipRepository::class);
+            // $data = $rep->getData(88);
+            // $period_label = $rep->getPeriodLabel(88);
+
+            $pdf = Pdf::loadView('livewire.payroll.payslip-pdf', [
+                'e' => $data,
+                'period_label' => $period_label
+            ])->setPaper('letter','portrait');
+
+            // $pdf->output();
+            // $dom_pdf = $pdf->getDomPDF();
+
+            // return $pdf->stream('Payslip.pdf');
+            
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'Payslip.pdf');
+        }
         
-        $period_label = $this->payslip->getPeriodLabel($this->period_id);
-        // $rep = app(PayslipRepository::class);
-        // $data = $rep->getData(88);
-        // $period_label = $rep->getPeriodLabel(88);
-
-        $pdf = Pdf::loadView('livewire.payroll.payslip-pdf', [
-            'e' => $data,
-            'period_label' => $period_label
-        ])->setPaper('letter','portrait');
-
-        // $pdf->output();
-        // $dom_pdf = $pdf->getDomPDF();
-
-        // return $pdf->stream('Payslip.pdf');
-        
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();
-        }, 'Payslip.pdf');
 
         // return response()->streamDownload(function() use ($pdf) {
         //     echo $pdf->stream();

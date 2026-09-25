@@ -8,6 +8,7 @@
         @endforeach
     </select>
     <div class="payslipBorder">
+    @if($period_id)
         <table class="payslipTable" border=1 style="border-collapse:collapse;page-break-inside: avoid;font-size:8pt; width:100%" >
             <tr>
                 <td colspan="2"> 
@@ -340,4 +341,5 @@
     <button wire:click="downloadPdf" type="button" class="mt-4 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
         Download PDF
     </button>
+    @endif
 </div>

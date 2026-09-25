@@ -57,10 +57,33 @@ class PayrollPeriodRepository
 
     public function get_payroll_viewableperiod()
     {
+
         $last_posted = $this->get_last_posted();
+
+        // dd($last_posted,Auth::user()->biometric_id);
         return $this->mainQuery()
                 ->where('date_from','>=','2025-01-01')
                 ->where('id','<=',$last_posted->period_id)
+                ->select(DB::raw("id,CONCAT(DATE_FORMAT(date_from,'%m/%d/%Y'),' - ',DATE_FORMAT(date_to,'%m/%d/%Y')) AS period_label"))
+                ->orderBy('id','desc')
+                ->get();
+    }
+
+    public function get_payroll_posted_viewableperiod()
+    {
+
+        $last_posted = $this->get_last_posted();
+
+        // dd($last_posted,Auth::user()->biometric_id);
+        $periods = DB::connection('hris')
+            ->table('payrollregister_posted_s')
+            ->select('period_id')
+            ->where('biometric_id',Auth::user()->biometric_id);
+
+        return $this->mainQuery()
+                ->where('date_from','>=','2025-01-01')
+                ->where('id','<=',$last_posted->period_id)
+                ->whereIn('id',$periods->pluck('period_id'))
                 ->select(DB::raw("id,CONCAT(DATE_FORMAT(date_from,'%m/%d/%Y'),' - ',DATE_FORMAT(date_to,'%m/%d/%Y')) AS period_label"))
                 ->orderBy('id','desc')
                 ->get();
